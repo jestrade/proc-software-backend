@@ -7,8 +7,6 @@ const init = async () => {
     const options = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
     };
 
     try {
@@ -17,7 +15,8 @@ const init = async () => {
     } catch (err) {
         console.error(
             `Error connecting to database ->`,
-            `Error code: ${err.code}, error reference: ${err.codeName}, message: ${err.message}`
+            `Error code: ${err.code}, error reference: ${err.codeName}, message: ${err.message}`,
+            `${err}`
         );
     }
 };

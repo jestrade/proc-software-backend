@@ -1,20 +1,11 @@
-const tasks = [
-    {
-        content: "1st task",
+const { faker } = require("@faker-js/faker");
+
+const total = Math.floor(Math.random() * 10) + 5;
+const tasks = Array(total).fill().map(() => {
+    return {
+        content: faker.lorem.paragraph(),
         status: "pending",
-    },
-    {
-        content: "2nd task",
-        status: "pending",
-    },
-    {
-        content: "3rd task",
-        status: "pending",
-    },
-    {
-        content: "4th task",
-        status: "pending",
-    },
-];
+    }
+}) || [];
 
 module.exports = { tasks };
