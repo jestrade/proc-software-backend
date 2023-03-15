@@ -15,10 +15,11 @@ const list = (req, res) => {
 };
 
 const create = (req, res) => {
-    const { content } = req.body;
+    const { content, status } = req.body;
 
     const task = {
         content,
+        status
     };
 
     const newTask = new Task(task);
@@ -32,7 +33,8 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-    const { id, status } = req.body;
+    const { id } = req.params;
+    const { status } = req.body;
 
     Task.updateOne({ _id: id }, { status: status })
         .then(() => {
@@ -43,10 +45,19 @@ const update = (req, res) => {
         });
 };
 
-
 const remove = (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     Task.deleteOne({ _id: id })
+        .then(() => {
+            res.status(200).json({ message: "ok" });
+        })
+        .catch((error) => {
+            res.status(200).json(error);
+        });
+};
+
+const removeAll = (req, res) => {
+    Task.deleteMany({})
         .then(() => {
             res.status(200).json({ message: "ok" });
         })
@@ -59,5 +70,6 @@ module.exports = {
     list,
     create,
     remove,
+    removeAll,
     update,
 };
