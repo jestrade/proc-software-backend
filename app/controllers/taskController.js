@@ -1,24 +1,15 @@
 const Task = require("../models/taskModel");
 
 const list = (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-    const skip = (page - 1) * limit;
 
-    Task.find({}, ["content", "createdAt"])
-        .limit(Number(limit))
-        .skip(skip)
+    Task.find({}, ["content", "status", "createdAt"])
         .sort({ createdAt: -1 })
         .then(async (tasks) => {
             const total = await Task.estimatedDocumentCount();
-            const totalPages = Math.round(total / limit);
-            const hasMore = page < totalPages;
 
             res.status(200).json({
-                hasMore,
-                totalPages,
                 total,
                 data: tasks,
-                currentPage: page,
             });
         });
 };
@@ -31,10 +22,27 @@ const create = (req, res) => {
     };
 
     const newTask = new Task(task);
-    newTask.save().then((taskCreated) => {
-        res.status(200).json(taskCreated);
-    });
+    newTask.save()
+        .then((taskCreated) => {
+            res.status(200).json(taskCreated);
+        })
+        .catch((error) => {
+            res.status(200).json(error);
+        });
 };
+
+const update = (req, res) => {
+    const { id, status } = req.body;
+
+    Task.updateOne({ _id: id }, { status: status })
+        .then(() => {
+            res.status(200).json({ message: "ok" });
+        })
+        .catch((error) => {
+            res.status(200).json(error);
+        });
+};
+
 
 const remove = (req, res) => {
     const { id } = req.body;
@@ -42,8 +50,8 @@ const remove = (req, res) => {
         .then(() => {
             res.status(200).json({ message: "ok" });
         })
-        .catch((err) => {
-            res.status(200).json(err);
+        .catch((error) => {
+            res.status(200).json(error);
         });
 };
 
@@ -51,4 +59,5 @@ module.exports = {
     list,
     create,
     remove,
+    update,
 };

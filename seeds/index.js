@@ -4,6 +4,7 @@ const { tasks } = require("./data");
 
 (async () => {
     await databaseServer.init();
+
     try {
         Task.collection.drop();
     } catch (err) { }
