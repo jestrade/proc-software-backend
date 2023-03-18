@@ -50,6 +50,7 @@ env:
 HTTP_HOST=
 HTTP_PORT=
 DB_CONNECTION_STRING=
+LOG_ACCESS=
 ```
 
 ## Install nodemon as development dependency
