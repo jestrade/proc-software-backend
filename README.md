@@ -16,7 +16,7 @@ Academic purpose
 ## Clone the repo
 
 ```sh
-> git clone https://github.com/jestrade/todo-backend.git
+> git clone REPO_URI
 ```
 
 ## Enter to folder project
@@ -32,7 +32,7 @@ Academic purpose
 ```
 
 ## Create database in docker
-docker run --name mongodb -v /your_path/db:/data/db -d mongo
+docker run --name mongodb -p 27017:27017 -v /your_path/db:/data/db -d mongo
 
 ## Create .env file
 
