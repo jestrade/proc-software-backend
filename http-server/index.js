@@ -17,7 +17,7 @@ app.use("/api/v1", api);
 
 const init = () => {
     app.listen(port, host, () => {
-        console.log(`Server running at http://${host}:${port}`);
+        console.log(`Server running at http://${host}:${port} ...`);
     });
 };
 
